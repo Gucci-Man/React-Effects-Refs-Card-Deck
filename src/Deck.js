@@ -1,6 +1,7 @@
 import React , {useEffect, useState } from "react";
 import Card from "./Card";
 import axios from "axios";
+import "./Deck.css";
 
 const API_BASE_URL = "https://deckofcardsapi.com/api/deck";
 /** Deck: uses deck API, allows drawing card at a time. */
@@ -56,17 +57,45 @@ function Deck() {
     /** Return draw button (disabled if shuffling) */
     function renderDrawBtnIfOk() {
         if (!deck) return null;
-    
 
-    return (
-        <button
-            className="Deck-gimme"
-            onCLick={draw}
-            disabled={isShuffling}>
-            DRAW
-        </button>
+        return (
+            <button
+                className="Deck-gimme"
+                onClick={draw}
+                disabled={isShuffling}>
+                DRAW
+            </button>
+            );
+    }
+
+    /** Return shuffle button (disabled if already is) */
+    function renderShuffleBtnIfOk() {
+        if(!deck) return null;
+        return (
+            <button
+                className="Deck-gimme"
+                onClick={startShuffling}
+                disabled={isShuffling}>
+                    SHUFFLE DECK
+            </button>
         );
     }
+
+    return (
+        <main className="Deck">
+
+            {renderDrawBtnIfOk()}
+            {renderShuffleBtnIfOk()}
+
+            <div className="Deck-cardarea">
+                {
+                    drawn.map(c => (
+                        <Card key={c.id} name={c.name} image={c.image} />
+                    ))
+                }
+            </div>
+        </main>
+    );
 
 };
 
