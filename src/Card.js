@@ -16,7 +16,7 @@ function Card({name, image}) {
         className="Card"
         alt={name}
         src={image}
-        style={( transform )} />;
+        style={{ transform }} />;
 }
 
 export default Card;
